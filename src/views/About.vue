@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="container mt-5">
+    <p>This is a work in progress offline QRL wallet generator.</p>
   </div>
 </template>

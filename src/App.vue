@@ -1,31 +1,43 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <nav class="navbar navbar-light" style="background-color: #f9dfe7;">
+
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <router-link class="nav-link" to="/">Home</router-link>
+      </li>
+      <li>
+        <router-link class="nav-link" to="/docs">Docs</router-link>
+      </li>
+      <li>
+        <router-link class="nav-link" to="/about">About</router-link>
+      </li>
+    </ul>
+      <!-- Navbar content -->
+    </nav>
     <router-view/>
+    <footer class="footer">
+       <div class="container d-flex justify-content-center pt-3">
+         <img height="30px" src="logo.svg">
+       </div>
+     </footer>
   </div>
+
 </template>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body{
+  font-family: 'Roboto';
 }
-#nav {
-  padding: 30px;
+.text-primary {
+  color: #dc255d !important;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #f5f5f5;
 }
 </style>

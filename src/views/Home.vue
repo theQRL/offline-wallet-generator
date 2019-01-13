@@ -1,18 +1,16 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <LoadQRLLIB />
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import LoadQRLLIB from '@/components/LoadQRLLIB.vue';
 
 export default {
   name: 'home',
   components: {
-    HelloWorld,
+    LoadQRLLIB,
   },
 };
+
 </script>

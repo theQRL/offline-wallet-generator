@@ -1,5 +1,14 @@
 # qrl-vue-wallet
 
+Work in progress
+
+Do not use in production/mainnet environment!
+
+## Dependencies
+
+- npm or yarn
+- @vue/cli v3 ([https://cli.vuejs.org/guide/installation.html](https://cli.vuejs.org/guide/installation.html))
+
 ## Project setup
 ```
 npm install
@@ -15,7 +24,7 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
+### Run tests
 ```
 npm run test
 ```
@@ -25,15 +34,13 @@ npm run test
 npm run lint
 ```
 
-### Run your end-to-end tests
+### Run end-to-end tests
 ```
 npm run test:e2e
 ```
 
-### Run your unit tests
+### Run unit tests
 ```
 npm run test:unit
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
