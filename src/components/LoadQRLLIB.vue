@@ -69,6 +69,12 @@ import $ from 'jquery';
 
 export default {
   name: 'LoadQRLLIB',
+  mounted() {
+    if ((typeof QRLLIB.str2bin) === 'function') {
+      $('#loading').hide();
+      $('#loaded').show();
+    }
+  },
   methods: {
     generateWallet() {
       const toUint8Vector = (arr) => {
