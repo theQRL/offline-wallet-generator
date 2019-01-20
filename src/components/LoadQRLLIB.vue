@@ -3,7 +3,7 @@
 
   <div class="row justify-content-center">
     <div class="col-10 offset-2">
-      <h1 class="display-2">QRL Wallet Generator</h1>
+      <h1 class="display-4">QRL Offline Wallet Generator</h1>
     </div>
   </div>
 
@@ -13,7 +13,7 @@
     </div>
 
     <div class="row justify-content-center">
-      <p class="text-muted">qrllib v0.99.3</p>
+      <p class="text-muted">qrllib v1.0.4</p>
     </div>
 
     <div class="row justify-content-center">
@@ -28,7 +28,7 @@
     </div>
 
     <div class="row justify-content-center">
-      <p class="text-muted">qrllib v0.99.3</p>
+      <p class="text-muted">qrllib v1.0.4</p>
     </div>
 
     <div class="row justify-content-center">
