@@ -72,7 +72,7 @@ workflows:
   version: 2
   main:
     jobs:
-      - build
+      - build_app
       - build_cy:
           requires:
             - build
@@ -81,5 +81,5 @@ workflows:
             - build_cy
       - deploy:
           requires:
-            - build
+            - build_app
             - 1x-electron
