@@ -62,7 +62,11 @@ jobs:
           at: ~/
       - run:
           command: cd app && npm run test:e2e
-          background: true
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - app
+            - .cache/Cypress
 
 workflows:
   version: 2
