@@ -40,10 +40,6 @@ jobs:
       - run:
           name: Install Dependencies
           command: npm install
-      # run verify and then save cache.
-      # this ensures that the Cypress verified status is cached too
-      - run: npm run cy:verify
-      # save new cache folder if needed
       - save_cache:
           key: cache-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
