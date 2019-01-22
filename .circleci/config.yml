@@ -61,7 +61,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          command: cd app && npm run test:e2e
+          command: npm run test:e2e
       - persist_to_workspace:
           root: ~/
           paths:
