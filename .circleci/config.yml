@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  deploy:
+    docker:
+      - image: circleci/node:8.11.2
+    parallelism: 1
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+      - run: zip -r qrl-offline-wallet.zip dist
+      - run: sudo npm install -g semantic-release
+      - run:
+          name: "Publish Release on GitHub"
+          command: semantic-release
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - deploy

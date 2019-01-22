@@ -35,8 +35,38 @@
       <font-awesome-icon icon="check" />
     </div>
 
-    <div class="row justify-content-center mt-5" id="generateButton">
-      <button class="btn btn-primary" v-on:click="generateWallet">Generate</button>
+    <div id="generateButton">
+    <div class="row justify-content-center mt-5">
+      <div class="btn-group">
+        <button type="button" class="btn btn-small btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Hash function
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">SHAKE-128</a>
+          <a class="dropdown-item" href="#">SHA246</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Separated link</a>
+        </div>
+      </div>
+      &nbsp;
+      <div class="btn-group">
+        <button type="button" class="btn btn-small btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Hash function
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">SHAKE-128</a>
+          <a class="dropdown-item" href="#">SHA246</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Separated link</a>
+        </div>
+      </div>
+    </div>
+
+<div class="row justify-content-center mt-5">
+      <button id="startGeneration" class="btn btn-primary" v-on:click="generateWallet">Generate</button>
+</div>
     </div>
 
     <div class="mt-5" id="generatingSpinner" style="display: none;">
@@ -98,19 +128,15 @@ export default {
         $('#generateButton').hide();
         $('#generatingSpinner').show('fast', async function () { // eslint-disable-line
           const Q = await makeWallet();
-          console.log(Q);
+          // console.log(Q);
           $('#generatingSpinner').hide();
           $('#address').text(Q.getAddress());
           $('#pk').text(Q.getPK());
           $('#mnemonic').text(Q.getMnemonic());
-          // const thisHashFunction = QRLLIB.getHashFunction(thisAddress)
-          // const thisSignatureType = QRLLIB.getSignatureType(thisAddress)
-          // const thisHeight = Q.getHeight()
-          // const thisHexSeed = Q.getHexSeed()
           $('#generated').show();
         });
       }
-      console.log('Making...');
+      // console.log('Making...');
       gen();
     },
   },

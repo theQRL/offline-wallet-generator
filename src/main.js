@@ -42,7 +42,6 @@ new Vue({
 }).$mount('#app');
 
 waitForQRLLIB(() => {
-  // Object.definePrototype(Vue.prototype, '$QRLLIB', { value: QRLLIB });
   $('#loading').hide();
   $('#loaded').show();
 });
