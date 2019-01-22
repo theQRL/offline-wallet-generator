@@ -8,6 +8,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run build
+      - run: npm run test:e2e
       - run: zip -r qrl-offline-wallet.zip dist
       - run: sudo npm install -g semantic-release
       - run:
