@@ -1,4 +1,4 @@
-# qrl-vue-wallet
+# offline-wallet-generator
 
 Work in progress
 
