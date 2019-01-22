@@ -75,7 +75,7 @@ workflows:
       - build_app
       - build_cy:
           requires:
-            - build
+            - build_app
       - 1x-electron:
           requires:
             - build_cy
