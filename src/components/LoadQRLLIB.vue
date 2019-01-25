@@ -45,7 +45,7 @@
             <button type="button" class="btn btn-small btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Tree height
             </button>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu dropdown-menu-right">
               <a class="dropdown-item" v-on:click="thisHeight(8)">Tree Height: 8, Signatures: 256</a>
               <a class="dropdown-item" v-on:click="thisHeight(10)">Tree Height: 10, Signatures: 1,024</a>
               <a class="dropdown-item" v-on:click="thisHeight(12)">Tree Height: 12, Signatures: 4,096</a>
