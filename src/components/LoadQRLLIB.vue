@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5 p-5">
     <div class="row justify-content-center">
-      <div class="col-10 offset-2">
+      <div class="col-12">
         <h1 class="display-4">QRL Offline Wallet Generator</h1>
       </div>
     </div>
@@ -29,7 +29,7 @@
         <font-awesome-icon icon="check" />
       </div>
       <div id="generateButton">
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mt-3">
           <div class="btn-group">
             <button type="button" class="btn btn-small btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Hash function
@@ -55,11 +55,11 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mt-3">
           <div>Hash function: {{ hash() }}</div>&nbsp;&nbsp;|&nbsp;&nbsp;
           <div>Tree height: {{ height() }}</div>
         </div>
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mt-3">
           <button id="startGeneration" class="btn btn-primary" v-on:click="generateWallet">Generate</button>
         </div>
       </div>
@@ -81,6 +81,9 @@
         <strong>Mnemonic: </strong>
         <p id="mnemonic" class="word"></p>
       </div>
+      <div class="mt-5" id="pdfSave" style="display: none;">
+        <button id="clickPdfSave" class="btn btn-primary" v-on:click="pdfSave">Save PDF</button>
+      </div>
     </div>
   </div>
 </template>
@@ -89,6 +92,7 @@
 /* global QRLLIB */
 import Crypto from 'crypto';
 import $ from 'jquery';
+import html2pdf from 'html2pdf.js';
 
 export default {
   name: 'LoadQRLLIB',
@@ -110,6 +114,16 @@ export default {
     },
     thisHash(hash) {
       this.$store.state.hash = hash;
+    },
+    pdfSave() {
+      // WIP PDF generation
+      // TODO: make this prettier...
+      const element = $('#generated').get(0);
+      html2pdf(element, {
+        margin: 20,
+        filename: 'qrl-wallet.pdf',
+        image: { type: 'jpeg', quality: 1.0 },
+      });
     },
     generateWallet() {
       const hashFunctionSelection = this.$store.state.hash;
@@ -154,6 +168,7 @@ export default {
           $('#pk').text(Q.getPK());
           $('#mnemonic').text(Q.getMnemonic());
           $('#generated').show();
+          $('#pdfSave').show();
         });
       }
       // generate an address asynchronously
@@ -175,6 +190,12 @@ export default {
 
 .word {
   word-break: normal;
+}
+
+h1.display-4 {
+  font-size: 2
+.5rem !important;
+  text-align: center !important;
 }
 
 </style>
