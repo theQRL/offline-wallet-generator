@@ -26,7 +26,11 @@
 </template>
 
 <style>
-body{
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
   font-family: 'Roboto';
 }
 .text-primary {
