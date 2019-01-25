@@ -82,7 +82,9 @@
         <p id="mnemonic" class="word"></p>
       </div>
       <div class="mt-5" id="pdfSave" style="display: none;">
+        <button class="btn btn-primary mr-2" v-on:click="printWallet">Print</button>
         <button id="clickPdfSave" class="btn btn-primary" v-on:click="pdfSave">Save PDF</button>
+        <small class="pl-2">Remember to move the PDF file to a secure location</small>
       </div>
     </div>
   </div>
@@ -93,6 +95,7 @@
 import Crypto from 'crypto';
 import $ from 'jquery';
 import html2pdf from 'html2pdf.js';
+import print from 'print-js';
 
 export default {
   name: 'LoadQRLLIB',
@@ -114,6 +117,9 @@ export default {
     },
     thisHash(hash) {
       this.$store.state.hash = hash;
+    },
+    printWallet() {
+      print('generated', 'html');
     },
     pdfSave() {
       // WIP PDF generation
@@ -138,19 +144,15 @@ export default {
       async function makeWallet() {
         let XMSS_OBJECT = null;
         let hashFunction = QRLLIB.eHashFunction.SHAKE_128;
-        console.log(hashFunctionSelection);
         switch (hashFunctionSelection) {
           case 'SHAKE_128':
             hashFunction = QRLLIB.eHashFunction.SHAKE_128;
-            console.log('shake 128');
             break;
           case 'SHAKE_256':
             hashFunction = QRLLIB.eHashFunction.SHAKE_256;
-            console.log('shake 256');
             break;
           case 'SHA2_256':
             hashFunction = QRLLIB.eHashFunction.SHA2_256;
-            console.log('SHA2_256');
             break;
           default:
         }
@@ -162,7 +164,6 @@ export default {
         $('#generateButton').hide();
         $('#generatingSpinner').show('fast', async function() { // eslint-disable-line
           const Q = await makeWallet();
-          // console.log(Q);
           $('#generatingSpinner').hide();
           $('#address').text(Q.getAddress());
           $('#pk').text(Q.getPK());
