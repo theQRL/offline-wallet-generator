@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5 p-5">
     <div class="row justify-content-center">
-      <div class="col-10 offset-2">
+      <div class="col-12">
         <h1 class="display-4">QRL Offline Wallet Generator</h1>
       </div>
     </div>
@@ -29,7 +29,7 @@
         <font-awesome-icon icon="check" />
       </div>
       <div id="generateButton">
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mt-3">
           <div class="btn-group">
             <button type="button" class="btn btn-small btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Hash function
@@ -45,7 +45,7 @@
             <button type="button" class="btn btn-small btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Tree height
             </button>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu dropdown-menu-right">
               <a class="dropdown-item" v-on:click="thisHeight(8)">Tree Height: 8, Signatures: 256</a>
               <a class="dropdown-item" v-on:click="thisHeight(10)">Tree Height: 10, Signatures: 1,024</a>
               <a class="dropdown-item" v-on:click="thisHeight(12)">Tree Height: 12, Signatures: 4,096</a>
@@ -55,11 +55,11 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mt-3">
           <div>Hash function: {{ hash() }}</div>&nbsp;&nbsp;|&nbsp;&nbsp;
           <div>Tree height: {{ height() }}</div>
         </div>
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mt-3">
           <button id="startGeneration" class="btn btn-primary" v-on:click="generateWallet">Generate</button>
         </div>
       </div>
@@ -81,6 +81,11 @@
         <strong>Mnemonic: </strong>
         <p id="mnemonic" class="word"></p>
       </div>
+      <div class="mt-5" id="pdfSave" style="display: none;">
+        <button class="btn btn-primary mr-2" v-on:click="printWallet">Print</button>
+        <button id="clickPdfSave" class="btn btn-primary" v-on:click="pdfSave">Save PDF</button>
+        <small class="pl-2">Remember to move the PDF file to a secure location</small>
+      </div>
     </div>
   </div>
 </template>
@@ -89,6 +94,8 @@
 /* global QRLLIB */
 import Crypto from 'crypto';
 import $ from 'jquery';
+import html2pdf from 'html2pdf.js';
+import print from 'print-js';
 
 export default {
   name: 'LoadQRLLIB',
@@ -111,6 +118,19 @@ export default {
     thisHash(hash) {
       this.$store.state.hash = hash;
     },
+    printWallet() {
+      print('generated', 'html');
+    },
+    pdfSave() {
+      // WIP PDF generation
+      // TODO: make this prettier...
+      const element = $('#generated').get(0);
+      html2pdf(element, {
+        margin: 20,
+        filename: 'qrl-wallet.pdf',
+        image: { type: 'jpeg', quality: 1.0 },
+      });
+    },
     generateWallet() {
       const hashFunctionSelection = this.$store.state.hash;
       const xmssHeight = this.$store.state.height;
@@ -124,19 +144,15 @@ export default {
       async function makeWallet() {
         let XMSS_OBJECT = null;
         let hashFunction = QRLLIB.eHashFunction.SHAKE_128;
-        console.log(hashFunctionSelection);
         switch (hashFunctionSelection) {
           case 'SHAKE_128':
             hashFunction = QRLLIB.eHashFunction.SHAKE_128;
-            console.log('shake 128');
             break;
           case 'SHAKE_256':
             hashFunction = QRLLIB.eHashFunction.SHAKE_256;
-            console.log('shake 256');
             break;
           case 'SHA2_256':
             hashFunction = QRLLIB.eHashFunction.SHA2_256;
-            console.log('SHA2_256');
             break;
           default:
         }
@@ -148,12 +164,12 @@ export default {
         $('#generateButton').hide();
         $('#generatingSpinner').show('fast', async function() { // eslint-disable-line
           const Q = await makeWallet();
-          // console.log(Q);
           $('#generatingSpinner').hide();
           $('#address').text(Q.getAddress());
           $('#pk').text(Q.getPK());
           $('#mnemonic').text(Q.getMnemonic());
           $('#generated').show();
+          $('#pdfSave').show();
         });
       }
       // generate an address asynchronously
@@ -175,6 +191,12 @@ export default {
 
 .word {
   word-break: normal;
+}
+
+h1.display-4 {
+  font-size: 2
+.5rem !important;
+  text-align: center !important;
 }
 
 </style>
