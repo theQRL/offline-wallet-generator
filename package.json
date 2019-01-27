@@ -17,6 +17,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.5",
     "bootstrap": "^4.2.1",
     "crypto": "^1.0.1",
+    "hack-font": "^3.3.0",
     "html2pdf": "0.0.11",
     "html2pdf.js": "^0.9.1",
     "jquery": "^3.3.1",

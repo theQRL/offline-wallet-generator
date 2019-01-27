@@ -3,6 +3,7 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
+import 'hack-font/build/web/hack.css';
 import { QRLLIBmodule } from 'qrllib/build/offline-libjsqrl'; // eslint-disable-line no-unused-vars
 import Vue from 'vue';
 import Vuex from 'vuex';
