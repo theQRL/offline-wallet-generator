@@ -129,7 +129,13 @@ export default {
       this.$store.state.hash = hash;
     },
     printWallet() {
-      print('generated', 'html');
+      print({
+        printable: 'generated',
+        type: 'html',
+        targetStyles: ['*'],
+        header: 'The Quantum Resistant Ledger',
+        headerStyle: 'font-family: Roboto; font-weight: 500; font-size: 24px;',
+      });
     },
     pdfSave() {
       // WIP PDF generation
