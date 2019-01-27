@@ -28,4 +28,5 @@ export default new Router({
       component: () => import(/* webpackChunkName: "docs" */ './views/Docs.vue'),
     },
   ],
+  linkActiveClass: 'active',
 });

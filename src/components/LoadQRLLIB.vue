@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5 p-5">
+  <div class="container mt-5 mb-5 p-5 shadow">
     <div class="row justify-content-center">
       <div class="col-12">
         <h1 class="display-4">QRL Offline Wallet Generator</h1>
@@ -74,12 +74,22 @@
         </div>
       </div>
       <div class="mt-5" id="generated" style="display: none;">
+        <div class="row justify-content-center"><img src="key.png" width="320px"></div>
         <strong>Address: </strong>
         <p id="address" class="wrap"></p>
+          <div class="alert alert-success" role="alert">
+            It's okay to share your address with others
+          </div>
         <strong>Private Key: </strong>
         <p id="pk" class="wrap"></p>
+          <div class="alert alert-danger" role="alert">
+            Do not share your private key with anyone!
+          </div>
         <strong>Mnemonic: </strong>
         <p id="mnemonic" class="word"></p>
+        <div class="alert alert-danger" role="alert">
+          Do not share your mnemonic phrase with anyone!
+        </div>
       </div>
       <div class="mt-5" id="pdfSave" style="display: none;">
         <button class="btn btn-primary mr-2" v-on:click="printWallet">Print</button>
@@ -197,6 +207,10 @@ h1.display-4 {
   font-size: 2
 .5rem !important;
   text-align: center !important;
+}
+
+#address, #mnemonic, #pk {
+  font-family: 'Hack';
 }
 
 </style>
