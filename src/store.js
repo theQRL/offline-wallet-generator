@@ -8,10 +8,4 @@ export default new Vuex.Store({
     hash: 'SHAKE_128',
     height: 10,
   },
-  mutations: {
-
-  },
-  actions: {
-
-  },
 });
