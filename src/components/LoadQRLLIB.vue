@@ -125,7 +125,7 @@
                         <div class="modal-body">
                           <form @submit.prevent="setPW">
                             <div class="form-group">
-                                <div class="form-inline row">
+                                <div class="form-inline row" id="pwBoxes" v-if="isSecure">
                                     <div class="form-group col-sm-6">
                                         <label for="inputPassword">Password</label>
                                         <input type="password" id="inputPassword" class="form-control" v-model="password" v-on:keyup="check">
@@ -135,15 +135,24 @@
                                         <input type="password" id="inputPasswordConfirm" class="form-control" v-model="passwordConfirm" v-on:keyup="check">
                                     </div>
                                 </div>
-                                <div class="form-inline row mt-2">
+                                <div class="form-inline row mt-2" v-if="isSecure">
                                     <div class="form-group col-sm-12"><label class="text-danger">{{passwordError()}}</label></div>
                                 </div>
                             </div>
-                            </form>
+                            <div class="form-group">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="secureToggle" v-model="isSecure">
+                                  <label class="form-check-label" for="secureToggle">
+                                    Use password protected wallet file format
+                                  </label>
+                                </div>
+                            </div>
+                          </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" v-bind:class="isValidated()" v-on:click="saveJSON" data-dismiss="modal">Save encrypted</button>
+                            <button type="button" v-bind:class="isValidated()" v-on:click="saveJSON" data-dismiss="modal" v-if="isSecure">Save encrypted</button>
+                            <button type="button" class="btn btn-danger" v-on:click="saveJSON" data-dismiss="modal" v-if="!isSecure">Save unencrypted</button>
                         </div>
                     </div>
                 </div>
@@ -174,13 +183,12 @@ export default {
       passwordConfirm: '',
       error: 'A password is required',
       validated: false,
+      isSecure: true,
     };
   },
   methods: {
     saveJSON() {
-      
       const thisAddress = $('#address').text();
-      const thisPkRaw = $('#pkraw').text();
       const thisAddressB32 = $('#b32').text();
       const thisPk = $('#pk').text();
       const thisHashFunction = QRLLIB.getHashFunction(thisAddress).value;
@@ -200,15 +208,15 @@ export default {
         signatureType: thisSignatureType,
         index: 0,
       };
-
-      const passphrase = this.password;
-      walletDetail.encrypted = true;
-      walletDetail.address = aes256.encrypt(passphrase, walletDetail.address);
-      walletDetail.mnemonic = aes256.encrypt(passphrase, walletDetail.mnemonic);
-      walletDetail.hexseed = aes256.encrypt(passphrase, walletDetail.hexseed);
-      walletDetail.addressB32 = aes256.encrypt(passphrase, walletDetail.addressB32);
-      walletDetail.pk = aes256.encrypt(passphrase, walletDetail.pk);
-
+      if (this.secure) {
+        const passphrase = this.password;
+        walletDetail.encrypted = true;
+        walletDetail.address = aes256.encrypt(passphrase, walletDetail.address);
+        walletDetail.mnemonic = aes256.encrypt(passphrase, walletDetail.mnemonic);
+        walletDetail.hexseed = aes256.encrypt(passphrase, walletDetail.hexseed);
+        walletDetail.addressB32 = aes256.encrypt(passphrase, walletDetail.addressB32);
+        walletDetail.pk = aes256.encrypt(passphrase, walletDetail.pk);
+      }
       const walletJson = ['[', JSON.stringify(walletDetail), ']'].join('');
       const binBlob = new Blob([walletJson]);
       const a = window.document.createElement('a');
@@ -217,7 +225,6 @@ export default {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-
     },
     check() {
       if (this.password === this.passwordConfirm) {
@@ -231,6 +238,18 @@ export default {
         this.error = 'A password is required';
         this.validated = false;
       }
+    },
+    secureToggle() {
+      console.log('secureToggle clicked');
+      const state = $('#secureToggle').checked;
+      if (state === true) {
+        // hide secure options
+        this.isSecure = false;
+      } else {
+        // show warning and download insecure button
+        this.isSecure = true;
+      }
+      console.log(this.isSecure);
     },
     isValidated() {
       if (this.validated) {
