@@ -1,15 +1,22 @@
-# offline-wallet-generator
+# QRL Offline Wallet Generator
 
-Work in progress
+## Use
 
-Do not use in production/mainnet environment!
+- Download the repository or a release
+- Unarchive
+- Open index.html in a modern browser (one which [supports webassembly](https://caniuse.com/#feat=wasm))
+- Generate a wallet with the required settings (see [docs.theqrl.org](https://docs.theqrl.org))
+- Save JSON/print/save PDF and print later
+- No internet connection required
 
-## Dependencies
+## Building from source
 
-- npm or yarn
+### Dependencies
+
+- npm (or yarn)
 - @vue/cli v3 ([https://cli.vuejs.org/guide/installation.html](https://cli.vuejs.org/guide/installation.html))
 
-## Project setup
+### Project setup
 ```
 npm install
 ```
