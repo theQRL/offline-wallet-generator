@@ -20,7 +20,7 @@ This software will allow you to generate a wallet for use on the QRL network.  F
 
 ![Screenshot 1](https://github.com/theqrl/offline-wallet-generator/blob/master/src/assets/qrl-vue-wallet.png)
 
-The software uses the core QRL library (QRLLIB) which required a modern browser with webassembly capabilities.  If the software has loaded correctly the version of QRLLIB and a check mark will be shown as in the picture above.
+The software uses the core QRL library (QRLLIB) which requires a modern browser with webassembly capabilities.  If the software has loaded correctly, the version of QRLLIB and a check mark will be shown as in the picture above.
 
 ![Screenshot 2](https://github.com/theqrl/offline-wallet-generator/blob/master/src/assets/qrl-vue-wallet_1.png)
 
