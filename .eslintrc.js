@@ -13,6 +13,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'max-len': 'off',
     'vue/max-attributes-per-line': 3,
+    "vue/v-bind-style": ["longform"],
+    "vue/v-on-style" : ["longform"],
   },
   parserOptions: {
     parser: 'babel-eslint',

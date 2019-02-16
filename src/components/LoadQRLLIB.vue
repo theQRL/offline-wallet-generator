@@ -47,13 +47,13 @@
               Hash function
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" @:click="thisHash('SHAKE_128')">
+              <a class="dropdown-item" v-on:click="thisHash('SHAKE_128')">
                 SHAKE_128
               </a>
-              <a class="dropdown-item" @:click="thisHash('SHAKE_256')">
+              <a class="dropdown-item" v-on:click="thisHash('SHAKE_256')">
                 SHAKE_256
               </a>
-              <a class="dropdown-item" @:click="thisHash('SHA2_256')">
+              <a class="dropdown-item" v-on:click="thisHash('SHA2_256')">
                 SHA2_256
               </a>
             </div>
@@ -64,22 +64,22 @@
               Tree height
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" @:click="thisHeight(8)">
+              <a class="dropdown-item" v-on:click="thisHeight(8)">
                 Tree Height: 8, Signatures: 256
               </a>
-              <a class="dropdown-item" @:click="thisHeight(10)">
+              <a class="dropdown-item" v-on:click="thisHeight(10)">
                 Tree Height: 10, Signatures: 1,024
               </a>
-              <a class="dropdown-item" @:click="thisHeight(12)">
+              <a class="dropdown-item" v-on:click="thisHeight(12)">
                 Tree Height: 12, Signatures: 4,096
               </a>
-              <a class="dropdown-item" @:click="thisHeight(14)">
+              <a class="dropdown-item" v-on:click="thisHeight(14)">
                 Tree Height: 14, Signatures: 16,384
               </a>
-              <a class="dropdown-item" @:click="thisHeight(16)">
+              <a class="dropdown-item" v-on:click="thisHeight(16)">
                 Tree Height: 16, Signatures: 65,536
               </a>
-              <a class="dropdown-item" @:click="thisHeight(18)">
+              <a class="dropdown-item" v-on:click="thisHeight(18)">
                 Tree Height: 18, Signatures: 262,144
               </a>
             </div>
@@ -90,7 +90,7 @@
           <div>Tree height: {{ height() }}</div>
         </div>
         <div class="row justify-content-center mt-3">
-          <button id="startGeneration" class="btn btn-primary" @:click="generateWallet">
+          <button id="startGeneration" class="btn btn-primary" v-on:click="generateWallet">
             Generate
           </button>
         </div>
@@ -128,7 +128,7 @@
         </div>
       </div>
       <div id="pdfSave" class="mt-5" style="display: none;">
-        <button class="btn btn-primary mr-2" @:click="printWallet">
+        <button class="btn btn-primary mr-2" v-on:click="printWallet">
           Print
         </button>
         <div class="btn-group" role="group">
@@ -136,7 +136,7 @@
             Save...
           </button>
           <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a id="clickPdfSave" class="dropdown-item" href="#" @:click="pdfSave">
+            <a id="clickPdfSave" class="dropdown-item" href="#" v-on:click="pdfSave">
               ...as PDF
             </a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exportModal">
@@ -174,13 +174,13 @@
                     <label for="inputPassword">
                       Password
                     </label>
-                    <input id="inputPassword" v-model="password" class="form-control" type="password" @:keyup="check">
+                    <input id="inputPassword" v-model="password" class="form-control" type="password" v-on:keyup="check">
                   </div>
                   <div class="form-group col-sm-6">
                     <label for="inputPasswordConfirm">
                       Confirm
                     </label>
-                    <input id="inputPasswordConfirm" v-model="passwordConfirm" class="form-control" type="password" @:keyup="check">
+                    <input id="inputPasswordConfirm" v-model="passwordConfirm" class="form-control" type="password" v-on:keyup="check">
                   </div>
                 </div>
                 <div v-if="isSecure" class="form-inline row mt-2">
@@ -205,10 +205,10 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">
               Cancel
             </button>
-            <button v-if="isSecure" :class="isValidated()" type="button" data-dismiss="modal" @:click="saveJSON">
+            <button v-if="isSecure" :class="isValidated()" type="button" data-dismiss="modal" v-on:click="saveJSON">
               Save encrypted
             </button>
-            <button v-if="!isSecure" class="btn btn-danger" type="button" data-dismiss="modal" @:click="saveJSON">
+            <button v-if="!isSecure" class="btn btn-danger" type="button" data-dismiss="modal" v-on:click="saveJSON">
               Save unencrypted
             </button>
           </div>
