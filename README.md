@@ -2,7 +2,7 @@
 
 ## Use (the quick version)
 
-- Download the repository or a release
+- Download the latest release
 - Unarchive
 - Open index.html in a modern browser (one which [supports webassembly](https://caniuse.com/#feat=wasm))
 - Generate a wallet with the required settings (see [docs.theqrl.org](https://docs.theqrl.org))
