@@ -2,7 +2,7 @@
 
 ## Use (the quick version)
 
-- Download the latest release
+- Download the latest **qrl-offline-wallet.zip** [release](https://github.com/theQRL/offline-wallet-generator/releases)
 - Unarchive
 - Open index.html in a modern browser (one which [supports webassembly](https://caniuse.com/#feat=wasm))
 - Generate a wallet with the required settings (see [docs.theqrl.org](https://docs.theqrl.org))
@@ -13,6 +13,20 @@ Help is available:
 
 - [Discord community](https://discord.gg/jBT6BEp)
 - <support@theqrl.org>
+
+## Verify integrity (optional but recommended step prior to use)
+
+- Obtain security@theqrl.org public PGP key from keyservers or [Github](https://raw.githubusercontent.com/theQRL/security/master/security.theqrl.org.gpg.asc)
+- Check the PGP signature of the shasum hashes file:
+```
+gpg --verify shasum.256.pgp.asc
+```
+- This should display _gpg: Good signature from "Security team <security@theqrl.org>"_
+- Check the shasum of the offline-wallet files:
+```
+shasum --check shasum.256.pgp.asc
+```
+- All files should be _OK_ (a _WARNING: 19 lines are improperly formatted_ is expected due to the file being PGP signed)
 
 ## Use (the longer version - with pictures)
 
