@@ -17,16 +17,22 @@ Help is available:
 ## Verify integrity (optional but recommended step prior to use)
 
 - Obtain security@theqrl.org public PGP key from keyservers or [Github](https://raw.githubusercontent.com/theQRL/security/master/security.theqrl.org.gpg.asc)
+- Download the PGP signed shasum file from this release from the [QRL security repo](https://github.com/theQRL/security/tree/master/offline-wallet-generator)
 - Check the PGP signature of the shasum hashes file:
 ```
 gpg --verify shasum.256.pgp.asc
 ```
 - This should display _gpg: Good signature from "Security team <security@theqrl.org>"_
-- Check the shasum of the offline-wallet files:
+- From downloaded qrl-offline-wallet.zip, check the shasum of the index of shasums:
+```
+shasum shasum.256.asc
+```
+- This should match the shasum shown in the PGP signed message verified above
+- Finally, check the shasum of the offline-wallet files:
 ```
 shasum --check shasum.256.pgp.asc
 ```
-- All files should be _OK_ (a _WARNING: 19 lines are improperly formatted_ is expected due to the file being PGP signed)
+- All files should be _OK_
 
 ## Use (the longer version - with pictures)
 
