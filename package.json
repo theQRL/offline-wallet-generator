@@ -21,7 +21,7 @@
     "crypto": "^1.0.1",
     "hack-font": "^3.3.0",
     "html2pdf": "0.0.11",
-    "html2pdf.js": "^0.9.1",
+    "html2pdf.js": "^0.10.0",
     "jquery": "^3.5.0",
     "jspdf": "^2.3.1",
     "popper.js": "^1.14.6",
