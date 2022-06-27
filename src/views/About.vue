@@ -11,7 +11,7 @@
       <p>
         This is MIT Licensed software.
         <br /><br />
-        <strong>Copyright (c) 2019 Die QRL Stiftung (The QRL Foundation)</strong>
+        <strong>Copyright (c) 2019-2022 Die QRL Stiftung (The QRL Foundation)</strong>
       </p>
 
       <p>
