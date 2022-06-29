@@ -3,7 +3,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import LoadQRLLIB from '@/components/LoadQRLLIB.vue';
 
 export default {

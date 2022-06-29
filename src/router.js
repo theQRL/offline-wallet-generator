@@ -1,11 +1,11 @@
 import Vue from "vue";
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "./views/Home.vue";
 
 // Vue.use(Router);
 
 export default new createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     {
       path: "/",

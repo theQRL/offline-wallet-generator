@@ -12,7 +12,7 @@
         </div>
         <div class="container">
           <div class="row justify-content-center">
-            <p class="text-muted">qrllib v1.0.4</p>
+            <p class="text-muted">qrllib v1.2.4</p>
           </div>
           <div class="row justify-content-center">
             <div class="spinner-grow text-primary" role="status">
@@ -27,7 +27,7 @@
             <p class="text-primary">Loaded QRL Library</p>
           </div>
           <div class="row justify-content-center">
-            <p class="text-muted">qrllib v1.0.4</p>
+            <p class="text-muted">qrllib v1.2.4</p>
           </div>
           <div class="row justify-content-center">
             <font-awesome-icon icon="check" />
