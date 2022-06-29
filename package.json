@@ -13,7 +13,6 @@
     "test:unit": "vue-cli-service test:unit",
     "start": "webpack-dev-server --progress --colors --inline --content-base build",
     "semantic-release": "semantic-release",
-    "preinstall": "npx npm-force-resolutions",
     "postinstall": "cp -r node_modules/@theqrl/qrllib-browserify/dist/qrllib.js public/qrllib.js",
     "prepare": "npm run snyk-protect",
     "snyk-protect": "snyk-protect"
