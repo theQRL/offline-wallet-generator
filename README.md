@@ -4,7 +4,22 @@
 
 - Download the latest **qrl-offline-wallet.zip** [release](https://github.com/theQRL/offline-wallet-generator/releases)
 - Unarchive
-- Open index.html in a modern browser (one which [supports webassembly](https://caniuse.com/#feat=wasm))
+
+**Either**:
+
+- Open offline.html in a modern browser (one which [supports webassembly](https://caniuse.com/#feat=wasm))
+
+**or**:
+
+- Run a local web server pointing to the index.html file, eg:
+
+```
+npm i -g http-server
+http-server offline-wallet-generator/
+```
+
+**then**:
+
 - Generate a wallet with the required settings (see [docs.theqrl.org](https://docs.theqrl.org))
 - Save JSON/print/save PDF and print later
 - No internet connection required
