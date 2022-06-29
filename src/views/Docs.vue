@@ -9,6 +9,8 @@
     </div>
     <div class="row p-3">
       <p>This software will allow you to generate a wallet for use on the QRL network.  For security, it is designed to be used in an offline environment.  It is recommended to use this software from a bootable OS (e.g. Desktop Ubuntu distribution) without any network connection.</p>
+      <p>To run offline, download the latest .zip file from the <a href="https://github.com/theQRL/offline-wallet-generator/releases">GitHub Releases</a> page, extract the zip then
+      run the offline.html file in your browser.</p>
     </div>
     <div class="row p-3">
       <img src="@/assets/qrl-vue-wallet.png" style="width:170px;" class="rounded bordered mb-1" alt="QRLLIB">
