@@ -19,8 +19,8 @@
       <br />
     </div>
     <footer class="footer">
-      <div class="container d-flex justify-content-center pt-3">
-        <img height="30px" src="logo.svg">
+      <div class="container d-flex justify-content-center">
+        <img style="height:60px;" src="logo.svg">
       </div>
     </footer>
   </div>
@@ -51,7 +51,7 @@ body {
 }
 
 .navbar {
-  background-color: #16437a;
+  background-color: #0b181e;
   box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.62) !important;
 }
 
@@ -67,7 +67,7 @@ body {
 }
 
 .navbar .nav .nav-item .active:not(.router-link-exact-active) {
-  background-color: #16437a;
+  background-color: #0b181e;
 }
 
 .shadow {
@@ -79,7 +79,30 @@ body {
 }
 
 .footer {
+  background-color: #0b181e;
   box-shadow: 0 -5px 5px -5px rgba(0, 0, 0, 0.22) !important;
   border-top: 1px solid rgba(0, 0, 0, 0.42) !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #ffa729;
+}
+
+.btn-primary {
+  background-color: #ffa729;
+  border: unset;
+  color: #fff;
+  transition: opacity .2s ease-in-out,color .2s ease-in-out,background-color .2s ease-in-out;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  background-color: #4aafff;
+  color: #fff;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: #a97301;
+  border: unset;
+  transition: opacity .2s ease-in-out,color .2s ease-in-out,background-color .2s ease-in-out;
 }
 </style>

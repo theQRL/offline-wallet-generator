@@ -1,12 +1,12 @@
-/* eslint new-cap:0, import/order:0 */
+
 /* global QRLLIB */
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import 'hack-font/build/web/hack.css';
-import { QRLLIBmodule } from 'qrllib/build/offline-libjsqrl'; // eslint-disable-line no-unused-vars
-import Vue from 'vue';
-import Vuex from 'vuex';
+// import { QRLLIBmodule } from 'qrllib/build/offline-libjsqrl'; // eslint-disable-line no-unused-vars
+import { createApp } from 'vue';
+// import Vuex from 'vuex';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -14,12 +14,13 @@ import $ from 'jquery';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-Vue.use(Vuex);
+import { Buffer } from "buffer";
+window.Buffer = Buffer;
+// Vue.use(Vuex);
 
 library.add(faCheck);
 
-Vue.component('font-awesome-icon', FontAwesomeIcon);
+// Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 const waitForQRLLIB = (callBack) => {
   setTimeout(() => {
@@ -34,15 +35,20 @@ const waitForQRLLIB = (callBack) => {
   }, 50);
 };
 
-Vue.config.productionTip = false;
+const app = createApp(App)
+    .use(router)
+    .use(store)
+    .component("font-awesome-icon", FontAwesomeIcon)
 
-new Vue({
-  router,
-  store,
-  render: h => h(App),
-}).$mount('#app');
+async function startup() {
+  // await QRLLIBmodule
+  waitForQRLLIB(() => {
+    router.isReady().then(() => {
+      app.mount('#app');
+      $('#loading').hide();
+      $('#loaded').show();
+    });
+  });
+}
 
-waitForQRLLIB(() => {
-  $('#loading').hide();
-  $('#loaded').show();
-});
+startup()
