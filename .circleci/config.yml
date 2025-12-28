@@ -13,10 +13,10 @@ jobs:
             - v1-dependencies-
       - run:
           name: Install dependencies
-          command: npm ci
+          command: npm ci --include=optional
       - run:
-          name: Rebuild native modules
-          command: npm rebuild
+          name: Install platform-specific lightningcss
+          command: npm install --no-save lightningcss-linux-x64-gnu@$(node -p "require('./node_modules/lightningcss/package.json').version")
       - save_cache:
           paths:
             - node_modules
