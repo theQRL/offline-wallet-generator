@@ -1,11 +1,13 @@
-// import Vue from 'vue';
-import Vuex from 'vuex';
+import { reactive } from 'vue';
 
-// Vue.use(Vuex);
-
-export default new Vuex.Store({
-  state: {
-    hash: 'SHAKE_128',
-    height: 10,
-  },
+const state = reactive({
+  hash: 'SHAKE_128',
+  height: 10,
 });
+
+export default {
+  state,
+  install(app) {
+    app.config.globalProperties.$store = this;
+  },
+};
