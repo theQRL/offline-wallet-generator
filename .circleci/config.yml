@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   deploy:
     docker:
-      - image: cimg/node:20.18.1
+      - image: cimg/node:23.11.1
     parallelism: 1
     steps:
       - checkout
