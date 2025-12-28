@@ -87,37 +87,43 @@ Whichever option for saving the wallet details you choose, be careful to guard t
 - @vue/cli v3 ([https://cli.vuejs.org/guide/installation.html](https://cli.vuejs.org/guide/installation.html))
 
 ### Project setup
-```
+
+```bash
 npm install
 ```
 
 ### Compiles and hot-reloads for development
-```
+
+```bash
 npm run serve
 ```
 
 ### Compiles and minifies for production
-```
+
+```bash
 npm run build
 ```
 
 ### Run tests
-```
+
+```bash
 npm run test
 ```
 
 ### Lints and fixes files
-```
+
+```bash
 npm run lint
 ```
 
 ### Run end-to-end tests
-```
+
+```bash
 npm run test:e2e
 ```
 
 ### Run unit tests
-```
+
+```bash
 npm run test:unit
 ```
-
