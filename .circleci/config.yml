@@ -7,9 +7,20 @@ jobs:
     parallelism: 1
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
       - run:
           name: Install dependencies
-          command: npm install
+          command: npm ci
+      - run:
+          name: Rebuild native modules
+          command: npm rebuild
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
       - run:
           name: Build project
           command: npm run build
