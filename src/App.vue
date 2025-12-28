@@ -24,11 +24,24 @@
 
     <footer class="footer footer-center p-4 bg-neutral text-neutral-content border-t border-black/40 shadow-[0_-5px_5px_-5px_rgba(0,0,0,0.22)]">
       <div>
-        <img class="h-14" src="/logo.svg" alt="QRL Logo">
+        <img class="h-14" :src="logoSvg" alt="QRL Logo">
       </div>
     </footer>
   </div>
 </template>
+
+<script>
+import logoSvgRaw from '/logo.svg?raw';
+
+export default {
+  name: 'App',
+  data() {
+    return {
+      logoSvg: 'data:image/svg+xml;base64,' + btoa(logoSvgRaw)
+    };
+  }
+};
+</script>
 
 <style>
 html {

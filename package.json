@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run postbuild",
+    "postbuild": "cd dist && find . -type f ! -name 'index.html' -delete",
     "serve": "vite preview",
     "postinstall": "cp -r node_modules/@theqrl/qrllib-browserify/dist/qrllib.js public/qrllib.js"
   },
@@ -26,6 +27,7 @@
     "daisyui": "^5.5.14",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
-    "vite": "^7.3.0"
+    "vite": "^7.3.0",
+    "vite-plugin-singlefile": "^2.3.0"
   }
 }
