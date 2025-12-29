@@ -8,10 +8,7 @@
 
         <p>To run offline, download the latest .zip file from the <a class="link link-primary" href="https://github.com/theQRL/offline-wallet-generator/releases">GitHub Releases</a> page, extract the zip then run the offline.html file in your browser.</p>
 
-        <div class="flex flex-col gap-2">
-          <img src="@/assets/qrl-vue-wallet.png" class="w-44 rounded shadow border border-base-300" alt="QRLLIB">
-          <p>The software uses the core QRL library (QRLLIB) which required a modern browser with webassembly capabilities. If the software has loaded correctly the version of QRLLIB and a check mark will be shown as in the picture above.</p>
-        </div>
+        <p>The software uses the core QRL library (QRLLIB) which requires a modern browser with webassembly capabilities. When the library has loaded successfully, a green checkmark will appear in the footer.</p>
 
         <div class="flex flex-col gap-2">
           <img src="@/assets/qrl-vue-wallet_1.png" class="w-80 rounded shadow border border-base-300" alt="Options">

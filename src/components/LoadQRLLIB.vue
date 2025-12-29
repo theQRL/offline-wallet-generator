@@ -15,13 +15,6 @@
 
         <!-- Loaded State -->
         <div id="loaded" v-show="qrllibLoaded">
-          <!-- Library Confirmation -->
-          <div id="qrllibConfirm" v-show="showQrllibConfirm" class="text-center mb-4">
-            <p class="text-primary">Loaded QRL Library</p>
-            <p class="text-base-content/60 text-sm">qrllib v1.2.4</p>
-            <font-awesome-icon icon="check" class="text-success text-2xl" />
-          </div>
-
           <!-- Generate Options -->
           <div id="generateButton" v-show="showGenerateButton">
             <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mt-4">
@@ -243,7 +236,6 @@ export default {
       hexseedMnemonic: '',
       errorM: '',
       qrllibLoaded: false,
-      showQrllibConfirm: true,
       showGenerateButton: true,
       showGeneratingSpinner: false,
       showGenerated: false,
@@ -481,7 +473,6 @@ export default {
     },
 
     async generateWallet(regen) {
-      this.showQrllibConfirm = false;
       this.showGenerateButton = false;
       this.showGeneratingSpinner = true;
       this.showRegenArea = false;
