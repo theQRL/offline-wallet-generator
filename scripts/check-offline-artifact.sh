@@ -140,6 +140,15 @@ fi
 # the version cannot be determined. Leaving it empty previously skipped the
 # assertion silently — a check that quietly does nothing is worse than no
 # check, because the PASS line still claims it ran.
+#
+# Which quote character wraps the constant is the minifier's choice, and it
+# changes with the bundler: Vite 8 moved to Rolldown, whose minifier emits
+# backticks where the previous one emitted double quotes. Matching one of them
+# turned a green gate red on a dependency bump alone. Accept any of the three
+# JS string delimiters, but still require a matched pair around the exact
+# version — the point is to catch a stale or absent constant, not a quote.
+# Three fixed-string patterns rather than one alternation, so the version is
+# never interpreted as a regex.
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 QRLLIB_PKG="$REPO_ROOT/node_modules/@theqrl/qrllib-browserify/package.json"
 
@@ -149,7 +158,11 @@ elif ! qrllib_version=$(node -p \
   "const p=require('$QRLLIB_PKG');p.dependencies?.qrllib ?? p.version" 2>/dev/null) \
   || [ -z "$qrllib_version" ]; then
   bad 'could not determine the installed qrllib version'
-elif grep -a -q -F "qrllibVersion:\"$qrllib_version\"" "$FILE"; then
+elif grep -a -q -F \
+    -e "qrllibVersion:\"$qrllib_version\"" \
+    -e "qrllibVersion:'$qrllib_version'" \
+    -e "qrllibVersion:\`$qrllib_version\`" \
+    "$FILE"; then
   note "qrllib version constant: $qrllib_version"
 else
   bad "built artefact does not carry the installed qrllib version ($qrllib_version)"

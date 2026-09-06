@@ -86,7 +86,12 @@ export default defineConfig(({ mode }) => {
       outDir: offline ? 'dist-offline' : 'dist',
       assetsInlineLimit: offline ? Number.MAX_SAFE_INTEGER : 4096,
       cssCodeSplit: !offline,
-      rollupOptions: offline ? { output: { inlineDynamicImports: true } } : {},
+      // No `rollupOptions.output.inlineDynamicImports` here any more. Vite 8
+      // builds on Rolldown, where vite-plugin-singlefile already sets
+      // `codeSplitting: false` — which subsumes the option and made Vite warn
+      // that it was being ignored. Removing it leaves the offline artefact
+      // byte-for-byte identical; what actually guarantees a single file is the
+      // "output files: 1" assertion in scripts/check-offline-artifact.sh.
     },
   }
 })
