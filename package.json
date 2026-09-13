@@ -24,7 +24,7 @@
     "@fortawesome/fontawesome-svg-core": "7.3.1",
     "@fortawesome/free-solid-svg-icons": "7.3.1",
     "@fortawesome/vue-fontawesome": "3.3.3",
-    "@theqrl/qrllib-browserify": "1.1.0",
+    "@theqrl/qrllib-browserify": "1.2.0",
     "buffer": "6.0.3",
     "jspdf": "4.2.1",
     "print-js": "1.6.0",
