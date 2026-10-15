@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { viteSingleFile } from 'vite-plugin-singlefile'
+import { inlineBundle } from './scripts/vite-plugin-inline-bundle.mjs'
 
 const pkg = JSON.parse(readFileSync(resolve('package.json'), 'utf8'))
 
@@ -58,7 +58,7 @@ export default defineConfig(({ mode }) => {
   return {
     base: './',
     publicDir: offline ? false : 'public',
-    plugins: [...(offline ? [inlinePublicImports()] : []), vue(), ...(offline ? [viteSingleFile(), inlinePublicAssets()] : [])],
+    plugins: [...(offline ? [inlinePublicImports()] : []), vue(), ...(offline ? [inlineBundle(), inlinePublicAssets()] : [])],
     resolve: {
       alias: {
         '@': resolve('src'),
@@ -87,7 +87,7 @@ export default defineConfig(({ mode }) => {
       assetsInlineLimit: offline ? Number.MAX_SAFE_INTEGER : 4096,
       cssCodeSplit: !offline,
       // No `rollupOptions.output.inlineDynamicImports` here any more. Vite 8
-      // builds on Rolldown, where vite-plugin-singlefile already sets
+      // builds on Rolldown, where inlineBundle already sets
       // `codeSplitting: false` — which subsumes the option and made Vite warn
       // that it was being ignored. Removing it leaves the offline artefact
       // byte-for-byte identical; what actually guarantees a single file is the
