@@ -30,16 +30,16 @@
     "print-js": "1.6.0",
     "scrypt-js": "3.0.1",
     "vue": "3.5.45",
-    "vue-router": "5.4.0"
+    "vue-router": "5.5.0"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.65.0",
     "@tailwindcss/postcss": "4.3.5",
     "@theqrl/wallet-helpers": "4.0.0",
-    "@vitejs/plugin-vue": "6.0.10",
+    "@vitejs/plugin-vue": "6.0.11",
     "@vue/compiler-sfc": "3.5.45",
-    "daisyui": "5.7.50",
+    "daisyui": "5.8.0",
     "eslint": "10.14.0",
     "eslint-plugin-vue": "10.12.1",
     "globals": "17.14.0",
