@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "./views/Home.vue";
 
+// Keep vue-router pinned to 5.4.0 until its unconditional sessionStorage writes
+// in 5.5.x can be disabled. Both builds must remain storage-free.
 export default new createRouter({
   history: createWebHashHistory(),
   routes: [
