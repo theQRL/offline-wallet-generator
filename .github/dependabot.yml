@@ -9,6 +9,11 @@ updates:
       interval: 'weekly'
     cooldown:
       default-days: 7
+    ignore:
+      # 5.5.x writes scroll state to sessionStorage unconditionally, breaking
+      # the storage-free contract checked by both browser test suites.
+      - dependency-name: 'vue-router'
+        versions: ['5.5.x']
     groups:
       dev-dependencies:
         patterns:
