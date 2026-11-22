@@ -99,9 +99,42 @@
             <p id="pk" class="hidden"></p>
 
             <!-- Action Buttons -->
-            <div class="flex flex-wrap justify-center gap-2 mt-6">
+            <div class="flex flex-wrap justify-center items-center gap-2 mt-6">
               <button class="btn btn-primary btn-sm" @click="printWallet">Print</button>
-              <button id="pdfSave" class="btn btn-primary btn-sm" @click="pdfSave">Save PDF</button>
+              <!-- The OTS tracker is PDF-only, so its toggle sits with the PDF
+                   button. Hidden for trees too tall for a paper grid. -->
+              <div class="flex flex-col gap-2 rounded-lg border border-base-300 px-2 py-2">
+                <div class="flex flex-wrap items-center gap-3">
+                  <button id="pdfSave" class="btn btn-primary btn-sm" :disabled="!walletLabelCheck.valid" @click="pdfSave">Save PDF</button>
+                  <label v-if="otsTrackerLayout" class="label cursor-pointer gap-2">
+                    <input type="checkbox" data-testid="ots-tracker" class="toggle toggle-primary toggle-sm" v-model="includeOtsTracker" />
+                    <span class="label-text text-sm">Include OTS tracker (+{{ otsTrackerLayout.pages }} {{ otsTrackerLayout.pages === 1 ? 'page' : 'pages' }})</span>
+                  </label>
+                </div>
+                <!-- Printed on the PDF only. Validated by allowlist in
+                     src/wallet-label.js; rendered here only through v-model
+                     and text interpolation, never v-html. -->
+                <label class="flex flex-col gap-1">
+                  <span class="text-sm">PDF label (optional)</span>
+                  <input
+                    v-model="walletLabel"
+                    type="text"
+                    data-testid="wallet-label"
+                    class="input input-bordered input-sm w-full"
+                    :class="{ 'input-error': !walletLabelCheck.valid }"
+                    :maxlength="maxWalletLabelLength"
+                    placeholder="e.g. Cold storage 1"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    :aria-invalid="!walletLabelCheck.valid"
+                    aria-describedby="wallet-label-help"
+                  />
+                  <span id="wallet-label-help" class="text-xs" :class="walletLabelCheck.valid ? 'text-base-content/60' : 'text-error'">
+                    {{ walletLabelCheck.valid ? 'Printed on every page. Never put a password or seed words here.' : walletLabelCheck.error }}
+                  </span>
+                </label>
+              </div>
             </div>
 
             <!-- Save Options -->
@@ -245,6 +278,8 @@ import WalletWorker from '../wallet-worker.js?worker&inline';
 import { getSecureRandomSeed, SECURE_RANDOM_ERROR } from '../secure-random.js';
 import { validatePassword, MINIMUM_PASSWORD_LENGTH } from '../password-policy.js';
 import { buildEncryptedEnvelope, buildUnencryptedEnvelope } from '../wallet-envelope.js';
+import { addOtsGridPages, otsGridLayout, treeHeightFromHexseed } from '../ots-grid.js';
+import { validateWalletLabel, MAX_WALLET_LABEL_LENGTH } from '../wallet-label.js';
 
 const HTML_ESCAPES = {
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -287,9 +322,22 @@ export default {
       isEncrypting: false,
       // Non-reactive in spirit; held so beforeUnmount can terminate it.
       activeWorker: null,
+      // Height of the wallet on screen, read from its hexseed (not the
+      // selector) once generation completes.
+      walletHeight: null,
+      includeOtsTracker: true,
+      walletLabel: '',
+      maxWalletLabelLength: MAX_WALLET_LABEL_LENGTH,
     };
   },
   computed: {
+    // null when the wallet's tree is too tall for a paper grid.
+    otsTrackerLayout() {
+      return otsGridLayout(this.walletHeight);
+    },
+    walletLabelCheck() {
+      return validateWalletLabel(this.walletLabel);
+    },
     estimatedTimeMessage() {
       const height = this.$store.state.height;
       const estimates = {
@@ -340,8 +388,10 @@ export default {
       const thisPk = document.getElementById('pk').textContent;
       const thisHashFunction = QRLLIB.getHashFunction(thisAddress).value;
       const thisSignatureType = QRLLIB.getSignatureType(thisAddress).value;
-      const thisHeight = this.$store.state.height;
       const thisHexSeed = document.getElementById('hexseed').textContent;
+      // From the seed, not the height selector: the selector can change after
+      // generation, and a regenerated wallet takes its height from the seed.
+      const thisHeight = treeHeightFromHexseed(thisHexSeed);
       const thisMnemonic = document.getElementById('mnemonic').textContent;
 
       // V3 wallet data structure
@@ -495,6 +545,15 @@ export default {
     },
 
     pdfSave() {
+      // Re-validated here rather than trusting the disabled button: this is
+      // the last point before the text is written into the document.
+      const labelCheck = validateWalletLabel(this.walletLabel);
+      if (!labelCheck.valid) {
+        this.errorM = labelCheck.error;
+        return;
+      }
+      const label = labelCheck.value;
+
       // Get wallet data
       const address = document.getElementById('address').textContent;
       const mnemonic = document.getElementById('mnemonic').textContent;
@@ -512,6 +571,20 @@ export default {
       doc.setTextColor(11, 24, 30);
       doc.text('QRL Wallet', pageWidth / 2, y, { align: 'center' });
       y += 20;
+
+      if (label) {
+        doc.setFont('helvetica', 'bold');
+        // Shrink to fit: 48 wide glyphs ("WWW...") overflow the page at 13pt.
+        let labelSize = 13;
+        doc.setFontSize(labelSize);
+        while (labelSize > 6 && doc.getTextWidth(label) > contentWidth) {
+          labelSize -= 0.5;
+          doc.setFontSize(labelSize);
+        }
+        doc.setTextColor(30, 30, 30);
+        doc.text(label, pageWidth / 2, y - 8, { align: 'center' });
+        y += 4;
+      }
 
       // Helper function to add a section
       const addSection = (label, content, warning, isShareable) => {
@@ -570,6 +643,12 @@ export default {
       doc.setTextColor(146, 64, 14);
       doc.text('Remember to move saved files to a secure location.', margin + 7, y + 7);
 
+      // OTS key tracker grid on pages 2 onwards, if chosen (and only offered
+      // for tree heights where a paper grid is practical).
+      if (this.includeOtsTracker && this.otsTrackerLayout) {
+        addOtsGridPages(doc, { height: treeHeightFromHexseed(hexseed), address, label });
+      }
+
       // Save
       doc.save('qrl-wallet.pdf');
     },
@@ -625,6 +704,7 @@ export default {
         document.getElementById('pk').textContent = e.data.pk;
         document.getElementById('hexseed').textContent = e.data.hexseed;
         document.getElementById('mnemonic').textContent = e.data.mnemonic;
+        this.walletHeight = treeHeightFromHexseed(e.data.hexseed);
 
         this.showGenerated = true;
         this.showRegenArea = false;

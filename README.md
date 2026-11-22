@@ -16,7 +16,7 @@ Use the [deployed wallet](https://offline-wallet-generator.theqrl.org), or for a
 **then**:
 
 - Generate a wallet with the required settings (see [docs.theqrl.org](https://docs.theqrl.org))
-- Save JSON/print/save PDF and print later
+- Save JSON/print/save PDF and print later (the PDF can include an OTS key tracker grid for tree heights up to 12, and an optional label)
 - No internet connection required
 
 Help is available:
