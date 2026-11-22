@@ -223,6 +223,55 @@ test('a wallet saved through the real UI decrypts back to what was shown', async
   await expect(page.getByPlaceholder('Enter password')).toHaveValue('');
 });
 
+test('the PDF carries OTS tracker pages only when the toggle is on', async ({ page }) => {
+  await denyNetwork(page);
+  await page.goto(ARTEFACT_URL);
+  await page.getByRole('button', { name: 'Generate', exact: true }).click();
+  await expect(page.locator('#mnemonic')).not.toBeEmpty({ timeout: 90_000 });
+
+  // Default tree height 10: 1,024 keys over two tracker pages.
+  const toggle = page.getByTestId('ots-tracker');
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toBeChecked();
+  await expect(page.getByText('Include OTS tracker (+2 pages)')).toBeVisible();
+
+  const pdfPageCount = async () => {
+    const downloadPromise = page.waitForEvent('download');
+    await page.locator('#pdfSave').click();
+    const download = await downloadPromise;
+    const pdf = readFileSync(await download.path(), 'latin1');
+    return (pdf.match(/\/Type \/Page\b(?!s)/g) || []).length;
+  };
+
+  expect(await pdfPageCount()).toBe(3);
+  await toggle.uncheck();
+  expect(await pdfPageCount()).toBe(1);
+});
+
+test('a PDF label is validated in the UI and printed on every page', async ({ page }) => {
+  await denyNetwork(page);
+  await page.goto(ARTEFACT_URL);
+  await page.getByRole('button', { name: 'Generate', exact: true }).click();
+  await expect(page.locator('#mnemonic')).not.toBeEmpty({ timeout: 90_000 });
+
+  const label = page.getByTestId('wallet-label');
+  const save = page.locator('#pdfSave');
+
+  // Rejected, not stripped: the save is blocked until the text is fixed.
+  await label.fill('x) Tj <b>');
+  await expect(save).toBeDisabled();
+  await expect(page.getByText('Label contains characters that are not allowed')).toBeVisible();
+
+  await label.fill('  Cold   storage #1  ');
+  await expect(save).toBeEnabled();
+
+  const downloadPromise = page.waitForEvent('download');
+  await save.click();
+  const pdf = readFileSync(await (await downloadPromise).path(), 'latin1');
+  // Page 1 plus two tracker pages at the default height of 10.
+  expect(pdf.match(/\(Cold storage #1\) Tj/g) || []).toHaveLength(3);
+});
+
 test('an encryption failure is reported instead of failing silently', async ({ page }) => {
   await denyNetwork(page);
   await page.goto(ARTEFACT_URL);

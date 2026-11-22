@@ -31,7 +31,7 @@
         <h3 class="font-semibold mt-4">Saving Your Wallet:</h3>
         <ul class="list-disc list-inside space-y-1">
           <li><strong>Print:</strong> Print wallet details directly</li>
-          <li><strong>Save PDF:</strong> Download as a PDF document</li>
+          <li><strong>Save PDF:</strong> Download as a PDF document. For tree heights up to 12 you can choose to include an OTS key tracker on pages 2 onwards: a grid of every OTS index to cross out as each one is used. You can also add an optional label (for example "Cold storage 1"), printed on every page of the PDF</li>
           <li><strong>Save JSON (encrypted):</strong> Password-protected format compatible with the QRL web wallet (recommended)</li>
           <li><strong>Save JSON (unencrypted):</strong> Plain format compatible with QRL web wallet and QRL nodes</li>
         </ul>
