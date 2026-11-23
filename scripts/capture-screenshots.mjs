@@ -76,6 +76,11 @@ await page.evaluate((p) => {
 
 await shot(page, '03-wallet-generated', CARD);
 
+// PDF options: OTS tracker toggle and the optional label (PDF-only).
+await page.getByTestId('wallet-label').fill('Cold storage 1');
+await shot(page, '07-pdf-options', '[data-testid="print-pdf-actions"]');
+await page.getByTestId('wallet-label').fill('');
+
 // Weak password refused — the behaviour the 2026-08 review added.
 await page.getByPlaceholder('Enter password').fill('password');
 await page.getByPlaceholder('Confirm password').fill('password');

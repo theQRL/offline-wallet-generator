@@ -79,6 +79,10 @@ The generated wallet can be printed, saved as a PDF, or exported as JSON in eith
 
 > The address, mnemonic and hexseed shown above are placeholders, not a real wallet.
 
+The PDF has two extra options grouped with the **Save PDF** button. For tree heights up to 12, **Include OTS tracker** adds pages after the wallet page with a grid of every OTS key index (1 page at height 8, 2 at height 10, 8 at height 12). Cross out each index once it has been used to sign a transaction, so a paper wallet never reuses a key. Above height 12 a grid is impractical on paper, so the option is not shown. You can also give the PDF a short **label** (letters, numbers, spaces and basic punctuation only), which is printed on every page so tracker sheets can be matched to their wallet.
+
+![The Print and Save PDF buttons, with the Include OTS tracker toggle and a PDF label field grouped with Save PDF](docs/images/07-pdf-options.png)
+
 Weak passwords are refused rather than merely flagged. Common passwords, keyboard patterns and repeated sequences will not enable the save button, and the reason is shown beneath the field.
 
 ![A common password being refused, with the reason shown and the save button disabled](docs/images/04-weak-password-refused.png)

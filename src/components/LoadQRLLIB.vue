@@ -99,7 +99,7 @@
             <p id="pk" class="hidden"></p>
 
             <!-- Action Buttons -->
-            <div class="flex flex-wrap justify-center items-center gap-2 mt-6">
+            <div data-testid="print-pdf-actions" class="flex flex-wrap justify-center items-center gap-2 mt-6">
               <button class="btn btn-primary btn-sm" @click="printWallet">Print</button>
               <!-- The OTS tracker is PDF-only, so its toggle sits with the PDF
                    button. Hidden for trees too tall for a paper grid. -->
